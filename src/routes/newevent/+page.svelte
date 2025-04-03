@@ -30,7 +30,7 @@
 			.then(async (response) => {
 				if (response.ok) {
 					const data = await response.json();
-					await goto(data.location);
+					return goto(data.location);
 				}
 			})
 			.finally(() => {

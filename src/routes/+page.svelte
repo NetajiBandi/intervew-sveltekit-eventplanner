@@ -1,17 +1,9 @@
 <script lang="ts">
-	import { onMount } from 'svelte';
 	import type { PageData } from './$types';
-	import { writable, get } from 'svelte/store';
 	import EventList from '$lib/components/EventList.svelte';
 	import Timeline from '$lib/components/Timeline.svelte';
 
 	let { data }: { data: PageData } = $props();
-	let events = writable<{ id: number; [key: string]: any }[]>([]);
-
-	onMount(async () => {
-		const fetchedEvents = (await data.events) || [];
-		events.set(fetchedEvents);
-	});
 
 	async function handleDelete(eventId: number) {
 		if (confirm('Are you sure you want to delete this event?')) {
@@ -21,8 +13,7 @@
 				});
 
 				if (response.ok) {
-					const currentEvents = get(events);
-					events.set(currentEvents.filter((event: { id: number }) => event.id !== eventId));
+					window.location.reload();
 					alert('Event deleted successfully.');
 				} else {
 					const error = await response.json();
