@@ -21,9 +21,15 @@
 			/>
 
 			<label class="fieldset-label">Description</label>
-			<textarea class="textarea" placeholder="Type here">
-				{data.event?.description || ''}
-			</textarea>
+			<textarea
+				class="textarea"
+				placeholder="Type here"
+				value={data.event?.description || ''}
+				id="description"
+				name="description"
+				rows="3"
+				required
+			/>
 
 			<label class="fieldset-label">Title</label>
 			<input

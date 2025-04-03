@@ -40,11 +40,10 @@ export const actions: Actions = {
 			if (!updatedEvent) {
 				throw error(404, 'Event not found');
 			}
-			throw redirect(303, `/${updatedEvent.id}`);
 		} else {
 			// Create new event
-			const newEvent = await createEvent({ title, description, date });
-			throw redirect(303, `/${newEvent.id}`);
+			await createEvent({ title, description, date });
 		}
+		throw redirect(303, `/`);
 	}
 };
