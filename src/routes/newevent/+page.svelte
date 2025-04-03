@@ -31,7 +31,7 @@
 				required
 			/>
 
-			<label class="fieldset-label">Title</label>
+			<label class="fieldset-label">Date</label>
 			<input
 				type="datetime-local"
 				class="input"
