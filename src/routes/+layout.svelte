@@ -11,8 +11,8 @@
 		</div>
 		<div class="flex-none">
 			<ul class="menu menu-horizontal px-1">
-				<li><a href="#">Sign in</a></li>
-				<li><a href="#">Sign up</a></li>
+				<li><a href="/">Sign in</a></li>
+				<li><a href="/">Sign up</a></li>
 			</ul>
 		</div>
 	</div>

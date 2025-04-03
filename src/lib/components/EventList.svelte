@@ -20,7 +20,12 @@
 						{event.description}
 					</p>
 					<div class="ml-auto flex gap-2">
-						<a class="btn btn-square btn-ghost" href={`/newevent?id=${event.id}`} role="button">
+						<a
+							class="btn btn-square btn-ghost"
+							href={`/newevent?id=${event.id}`}
+							role="button"
+							aria-label="Edit event"
+						>
 							<svg class="size-[1.2em]" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
 								<path
 									d="M3 21v-3.75L16.81 3.44a1.5 1.5 0 0 1 2.12 0l1.63 1.63a1.5 1.5 0 0 1 0 2.12L6.75 21H3zm3.5-2H5v1.5h1.5V19zm1.06-1.06L18.44 6.06l-1.5-1.5L6.06 16.44l1.5 1.5z"
@@ -29,7 +34,11 @@
 							</svg>
 						</a>
 
-						<button class="btn btn-square btn-ghost" on:click={() => onDelete(event.id)}>
+						<button
+							class="btn btn-square btn-ghost"
+							on:click={() => onDelete(event.id)}
+							aria-label="Delete event"
+						>
 							<svg class="size-[1.2em]" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
 								<path
 									d="M9 3h6a1 1 0 0 1 1 1v1h5a1 1 0 1 1 0 2h-1v13a3 3 0 0 1-3 3H7a3 3 0 0 1-3-3V7H3a1 1 0 1 1 0-2h5V4a1 1 0 0 1 1-1Zm6 4a1 1 0 1 0-2 0v10a1 1 0 1 0 2 0V7Zm-4 0a1 1 0 1 0-2 0v10a1 1 0 1 0 2 0V7Z"

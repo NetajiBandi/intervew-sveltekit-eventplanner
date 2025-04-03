@@ -36,10 +36,7 @@
 
 {#if $events.length === 0}
 	<p class="text-center mt-4">No events available. Please add an event.</p>
-{/if}
-
-{#if $events.length > 0}
+{:else}
 	<EventList events={$events} onDelete={handleDelete} />
-
 	<Timeline events={$events} />
 {/if}
