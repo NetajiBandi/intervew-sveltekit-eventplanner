@@ -52,7 +52,7 @@
 		class="fieldset w-xs bg-base-200 border border-base-300 p-4 rounded-box"
 		disabled={$isSubmitting}
 	>
-		<legend class="fieldset-legend">Add Event</legend>
+		<legend class="fieldset-legend text-lg font-bold">Add Event</legend>
 
 		<div class="mx-auto flex max-w-xs flex-col gap-3">
 			<label class="fieldset-label" for="title">Title</label>

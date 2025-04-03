@@ -1,4 +1,6 @@
 <script lang="ts">
+	import { formatEventDate } from '$lib/utils/dateUtils';
+
 	export let events: Array<{ id: number; title: string; description?: string; date: string }> = [];
 	export let onDelete: (id: number) => void = () => {};
 </script>
@@ -12,10 +14,16 @@
 					<div class="divider"></div>
 				{/if}
 				<li class="list-row">
-					<div on:click={() => (window.location.href = `/${event.id}`)} class="cursor-pointer">
+					<button
+						on:click={() => (window.location.href = `/${event.id}`)}
+						class="cursor-pointer text-left"
+						aria-label={`View details for ${event.title}`}
+					>
 						<div>{event.title}</div>
-						<div class="text-xs uppercase font-semibold opacity-60">{event.date}</div>
-					</div>
+						<div class="text-xs uppercase font-semibold opacity-60">
+							{formatEventDate(event.date)}
+						</div>
+					</button>
 					<p class="list-col-wrap text-xs">
 						{event.description}
 					</p>

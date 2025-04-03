@@ -1,4 +1,5 @@
 <script lang="ts">
+	import { formatEventDate } from '$lib/utils/dateUtils';
 	export let events: Array<{ id: number; title: string; description?: string; date: string }> = [];
 </script>
 
@@ -10,7 +11,9 @@
 					<img src="/img/timeline-icon.svg" alt="Timeline" class="h-5 w-5" />
 				</div>
 				<div class={index % 2 === 0 ? 'timeline-start mb-10 md:text-end' : 'timeline-end md:mb-10'}>
-					<time class="font-mono italic">{event.date}</time>
+					<time class="font-mono italic">
+						{formatEventDate(event.date)}
+					</time>
 					<div class="text-lg font-black">{event.title}</div>
 					{event.description}
 				</div>
