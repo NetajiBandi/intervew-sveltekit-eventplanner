@@ -34,6 +34,12 @@
 	<a class="btn btn-neutral mt-4" href="/newevent" role="button">Add Event</a>
 </div>
 
-<EventList events={$events} onDelete={handleDelete} />
+{#if $events.length === 0}
+	<p class="text-center mt-4">No events available. Please add an event.</p>
+{/if}
 
-<Timeline events={$events} />
+{#if $events.length > 0}
+	<EventList events={$events} onDelete={handleDelete} />
+
+	<Timeline events={$events} />
+{/if}
