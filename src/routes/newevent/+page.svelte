@@ -1,11 +1,49 @@
 <script lang="ts">
 	import type { PageData } from './$types';
+	import { writable } from 'svelte/store';
+	import { enhance } from '$app/forms';
+	import { goto } from '$app/navigation';
 
+	let formElement: HTMLFormElement | null = null;
 	let { data }: { data: PageData } = $props();
+	let isSubmitting = writable(false);
+
+	function enhanceHandler({
+		formData,
+		cancel,
+		formElement
+	}: {
+		formData: FormData;
+		cancel: () => void;
+		formElement: HTMLFormElement;
+		submitter: HTMLElement | null;
+	}) {
+		cancel();
+
+		if ($isSubmitting) return;
+		$isSubmitting = true;
+
+		fetch(formElement.action, {
+			method: formElement.method,
+			body: formData
+		})
+			.then(async (response) => {
+				if (response.ok) {
+					const data = await response.json();
+					await goto(data.location);
+				}
+			})
+			.finally(() => {
+				$isSubmitting = false;
+			});
+	}
 </script>
 
-<form method="POST">
-	<fieldset class="fieldset w-xs bg-base-200 border border-base-300 p-4 rounded-box">
+<form method="POST" bind:this={formElement} use:enhance={enhanceHandler} class="form">
+	<fieldset
+		class="fieldset w-xs bg-base-200 border border-base-300 p-4 rounded-box"
+		disabled={$isSubmitting}
+	>
 		<legend class="fieldset-legend">Add Event</legend>
 
 		<div class="mx-auto flex max-w-xs flex-col gap-3">
@@ -27,8 +65,8 @@
 				id="description"
 				name="description"
 				rows="3"
-				required
-			>{data.event?.description || ''}</textarea>
+				required>{data.event?.description || ''}</textarea
+			>
 
 			<label class="fieldset-label" for="date">Date</label>
 			<input
@@ -41,8 +79,8 @@
 				value={data.event?.date || ''}
 			/>
 
-			<button type="submit" class="btn btn-neutral mt-4">
-				{data.event ? 'Update' : 'Add'}
+			<button type="submit" class="btn btn-neutral mt-4" disabled={$isSubmitting}>
+				{$isSubmitting ? 'Submitting...' : data.event ? 'Update' : 'Add'}
 			</button>
 			<a class="btn" href="/" role="button">Cancel</a>
 		</div>
