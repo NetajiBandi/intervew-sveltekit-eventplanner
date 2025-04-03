@@ -10,10 +10,15 @@
 </script>
 
 <div>
-	{#if data.event}
-		<EventList events={[data.event]} onDelete={handleDelete} />
-	{/if}
-	<div class="mx-auto flex max-w-xs flex-col gap-3">
-		<a class="btn" href="/" role="button">Home</a>
-	</div>
+	{#await data.event}
+		<p class="text-center mt-4">Loading event...</p>
+	{:then eventData}
+		{#if !eventData}
+			<p class="text-center mt-4 text-gray-500">No events found. Please add an event.</p>
+		{:else}
+			<EventList events={[eventData]} onDelete={handleDelete} />
+		{/if}
+	{:catch error}
+		<p class="quote error">Failed to load the event: {error.message}</p>
+	{/await}
 </div>

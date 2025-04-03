@@ -36,7 +36,9 @@
 </script>
 
 <div class="flex flex-wrap items-center justify-center overflow-x-hidden">
-	<a class="btn btn-neutral mt-4" href="/newevent" role="button">Add Event</a>
+	<a class="btn btn-neutral mt-4" href="/newevent" role="button" data-sveltekit-prefetch
+		>Add Event</a
+	>
 </div>
 
 {#await data.events}
