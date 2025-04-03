@@ -7,6 +7,7 @@
 	let formElement: HTMLFormElement | null = null;
 	let { data }: { data: PageData } = $props();
 	let isSubmitting = writable(false);
+	let errorMessage = writable('');
 
 	function enhanceHandler({
 		formData,
@@ -22,6 +23,7 @@
 
 		if ($isSubmitting) return;
 		$isSubmitting = true;
+		errorMessage.set('');
 
 		fetch(formElement.action, {
 			method: formElement.method,
@@ -31,7 +33,13 @@
 				if (response.ok) {
 					const data = await response.json();
 					return goto(data.location);
+				} else {
+					const errorData = await response.json();
+					errorMessage.set(errorData.error.message || 'An error occurred');
 				}
+			})
+			.catch(() => {
+				errorMessage.set('Failed to submit the form. Please try again.');
 			})
 			.finally(() => {
 				$isSubmitting = false;
@@ -79,6 +87,7 @@
 				value={data.event?.date || ''}
 			/>
 
+			<p class="text-error text-sm mt-1">{$errorMessage}</p>
 			<button type="submit" class="btn btn-neutral mt-4" disabled={$isSubmitting}>
 				{$isSubmitting ? 'Submitting...' : data.event ? 'Update' : 'Add'}
 			</button>
