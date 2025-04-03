@@ -5,7 +5,9 @@
 	import Timeline from '$lib/components/Timeline.svelte';
 
 	let { data }: { data: PageData } = $props();
-	let events = writable(data.events);
+	let events = writable(
+		data.events.sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime())
+	);
 
 	async function handleDelete(eventId: number) {
 		if (confirm('Are you sure you want to delete this event?')) {
